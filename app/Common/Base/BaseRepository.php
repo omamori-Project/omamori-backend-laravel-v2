@@ -1,5 +1,5 @@
 <?php
-
+// 공통DB처리의 기반
 namespace App\Common\Base;
 
 // import

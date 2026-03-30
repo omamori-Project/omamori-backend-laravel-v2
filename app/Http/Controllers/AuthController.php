@@ -1,14 +1,16 @@
 <?php
-// 공통DB처리
+// 회원 관련 요청 처리
 namespace App\Http\Controllers;
 
 // import
-use Illuminate\Http\Request;
+use App\Common\Base\BaseController;
 use App\Services\AuthService;
+use Illuminate\Http\Request;
+
 
 
 // 상속
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     protected AuthService $authService;
 
@@ -32,9 +34,6 @@ class AuthController extends Controller
         $user = $this->authService->register($validated);
 
         // Response 반환
-        return response()->json([
-            'message' => 'register ok',
-            'data' => $user,
-        ], 201);
+        return $this->successResponse('register ok', $user, 201);
     }
 }
