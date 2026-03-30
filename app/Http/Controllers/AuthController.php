@@ -36,4 +36,20 @@ class AuthController extends BaseController
         // Response 반환
         return $this->successResponse('register ok', $user, 201);
     }
+
+
+    // 로그인
+    public function login(Request $request)
+    {
+        // 입력 내용 확인
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        // 로그인 처리를 맡임
+        $user = $this->authService->login($validated);
+        // Response 반환
+        return $this->successResponse('login ok', $user, 200);
+    }
 }
