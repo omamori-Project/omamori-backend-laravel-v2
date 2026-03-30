@@ -3,12 +3,13 @@
 namespace App\Services;
 
 // import
+use App\Common\Base\BaseService;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 
 
-
-class AuthService
+// 상속
+class AuthService extends BaseService
 {
     protected UserRepository $userRepository;
 
