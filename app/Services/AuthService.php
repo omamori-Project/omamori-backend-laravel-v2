@@ -5,6 +5,7 @@ namespace App\Services;
 // import
 use App\Common\Base\BaseService;
 use App\Repositories\UserRepository;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -47,7 +48,20 @@ class AuthService extends BaseService
         if (!Hash::check($data['password'], $user->password_hash)) {
             abort(401, 'Invalid email or password');
         }
+
+        // 토큰 작성
+        $payload = [
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'iat' => time(),
+            'exp' => time() + 60 * 60 * 24 // 24시간
+        ];
+
+        $token = JWT::encode($payload, env('TOKEN_SECRET'), 'HS256');
         // 성공
-        return $user;
+        return [
+            'user' => $user,
+            'token' => $token
+        ];
     }
 }
