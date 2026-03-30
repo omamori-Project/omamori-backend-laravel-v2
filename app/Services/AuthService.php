@@ -1,5 +1,5 @@
 <?php
-
+// 인증관련 처리
 namespace App\Services;
 
 // import
@@ -30,5 +30,24 @@ class AuthService extends BaseService
             'role' => 'user',
             'is_active' => true,
         ]);
+    }
+
+
+    // 로그인
+    public function login(array $data)
+    {
+        // 이메일으로 user 취득
+        $user = $this->userRepository->findByEmail($data['email']);
+        // user가 없을 때
+        if (!$user) {
+            abort(401, 'Invalid email or password');
+        }
+
+        // 비밀번호 확인
+        if (!Hash::check($data['password'], $user->password_hash)) {
+            abort(401, 'Invalid email or password');
+        }
+        // 성공
+        return $user;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-
+// user정보 데이터 취득/저장
 namespace App\Repositories;
 
 // import
