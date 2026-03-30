@@ -15,4 +15,12 @@ class UserRepository extends BaseRepository
     {
         $this->model = $user;
     }
+
+
+    // 로그인
+    // 이메일으로 user를 1건 취득
+    public function findByEmail(string $email): ?User
+    {
+        return $this->model->where('email', $email)->first();
+    }
 }
