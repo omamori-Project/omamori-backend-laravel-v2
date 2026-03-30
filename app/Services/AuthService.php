@@ -1,14 +1,16 @@
 <?php
-
+// 인증관련 처리
 namespace App\Services;
 
 // import
+use App\Common\Base\BaseService;
 use App\Repositories\UserRepository;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Hash;
 
 
-
-class AuthService
+// 상속
+class AuthService extends BaseService
 {
     protected UserRepository $userRepository;
 
@@ -29,5 +31,37 @@ class AuthService
             'role' => 'user',
             'is_active' => true,
         ]);
+    }
+
+
+    // 로그인
+    public function login(array $data)
+    {
+        // 이메일으로 user 취득
+        $user = $this->userRepository->findByEmail($data['email']);
+        // user가 없을 때
+        if (!$user) {
+            abort(401, 'Invalid email or password');
+        }
+
+        // 비밀번호 확인
+        if (!Hash::check($data['password'], $user->password_hash)) {
+            abort(401, 'Invalid email or password');
+        }
+
+        // 토큰 작성
+        $payload = [
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'iat' => time(),
+            'exp' => time() + 60 * 60 * 24 // 24시간
+        ];
+
+        $token = JWT::encode($payload, env('TOKEN_SECRET'), 'HS256');
+        // 성공
+        return [
+            'user' => $user,
+            'token' => $token
+        ];
     }
 }
