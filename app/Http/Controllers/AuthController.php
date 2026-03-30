@@ -1,5 +1,5 @@
 <?php
-
+// 공통DB처리
 namespace App\Http\Controllers;
 
 // import
