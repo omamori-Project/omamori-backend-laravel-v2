@@ -4,14 +4,15 @@ namespace App\Repositories;
 
 // import
 use App\Models\User;
+use App\Common\Base\BaseRepository;
 
 
-
-class UserRepository
+// 상속
+class UserRepository extends BaseRepository
 {
     // 회원가입
-    public function createUser(array $data): User
+    public function __construct(User $user)
     {
-        return User::create($data);
+        $this->model = $user;
     }
 }

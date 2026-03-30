@@ -22,7 +22,7 @@ class AuthService
     {
         $passwordHash = Hash::make($data['password']);
 
-        return $this->userRepository->createUser([
+        return $this->userRepository->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password_hash' => $passwordHash,
