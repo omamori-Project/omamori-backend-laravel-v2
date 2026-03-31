@@ -16,4 +16,4 @@ Route::middleware('jwt.auth')->group(function(){
 });
 
 // 내 정보 조회
-Route::get('/me', [AuthController::class, 'show']);
+Route::middleware('jwt.auth')->get('/me', [AuthController::class, 'show']);
