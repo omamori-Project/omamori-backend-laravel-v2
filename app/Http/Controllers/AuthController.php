@@ -71,7 +71,14 @@ class AuthController extends BaseController
     // 내 정보 조회
     public function show(Request $request)
     {
+        // 토큰 확인
         $user = $request->attributes->get('auth_user');
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Authenticated user not found',
+            ], 401);
+        }
 
         return response()->json([
             'success' => true,
