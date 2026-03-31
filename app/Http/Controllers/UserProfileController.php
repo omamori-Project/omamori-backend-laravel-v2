@@ -7,7 +7,7 @@ use App\Common\Base\BaseController;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 
 
 // 상속
@@ -21,7 +21,7 @@ class UserProfileController extends BaseController
     }
 
     // 회원 정보 수정
-    public function update(Request $request)
+    public function update(UpdateProfileRequest $request)
     {
         // 토큰 확인
         $user = $request->attributes->get('auth_user');
@@ -34,7 +34,7 @@ class UserProfileController extends BaseController
 
         // 내용 제한
         $validated = $request->validated();
-        
+
         $updatedUser = $this->userService->updateProfile($user, $validated);
         
         // 저장

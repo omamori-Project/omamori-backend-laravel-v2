@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    // update
+    // 회원 정보 수정
     public function updateProfile(User $user, array $validated): User
     {
         if (array_key_exists('name', $validated)) {

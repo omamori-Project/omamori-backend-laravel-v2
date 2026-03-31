@@ -16,7 +16,7 @@ Route::middleware('jwt.auth')->group(function(){
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
     // 내 정보 조회
-    Route::get('/me', [UserProfileController::class, 'show']);
+    Route::get('/me', [AuthController::class, 'show']);
 
     // 회원 정보 수정
     Route::patch('/me', [UserProfileController::class, 'update']);
