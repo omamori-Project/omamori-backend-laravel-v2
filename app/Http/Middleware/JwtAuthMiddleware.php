@@ -5,6 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 
 class JwtAuthMiddleware
 {
@@ -21,6 +24,27 @@ class JwtAuthMiddleware
             return response()->json([
                 'success' => false,
                 'message' => 'Token not provided'
+            ], 401);
+        }
+
+        if (!str_starts_with($authHeader, 'Bearer ')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid token format',
+            ], 401);
+        }
+
+        $token = substr($authHeader, 7);
+
+        try {
+            // 토큰 확인
+            $decoded = JWT::decode($token, new Key(env('TOKEN_SECRET'), 'HS256'));
+            // Controller에 user_id를 보내기
+            $request->attributes->set('auth_user_id', $decoded->user_id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid token',
             ], 401);
         }
 

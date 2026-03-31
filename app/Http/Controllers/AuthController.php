@@ -55,11 +55,16 @@ class AuthController extends BaseController
 
 
     // 로그아웃
-    public function logout()
+    public function logout(Request $request)
     {
+        $userId = $request->attributes->get('auth_user_id');
+
         return response()->json([
             'success' => true,
-            'message' => 'logout ok'
+            'message' => 'logout ok',
+            'data' => [
+            'user_id' => $userId,
+        ],
         ]);
     }
 }
