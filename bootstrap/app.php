@@ -11,6 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    // Controller에 가기 전에 확인
     ->withMiddleware(function ($middleware) {
         $middleware->alias([
             'jwt.auth' => \App\Http\Middleware\JwtAuthMiddleware::class,
