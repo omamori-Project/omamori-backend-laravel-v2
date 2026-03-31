@@ -52,4 +52,14 @@ class AuthController extends BaseController
         // Response 반환
         return $this->successResponse('login ok', $user, 200);
     }
+
+
+    // 로그아웃
+    public function logout()
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'logout ok'
+        ]);
+    }
 }
