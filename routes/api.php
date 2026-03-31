@@ -20,5 +20,8 @@ Route::middleware('jwt.auth')->group(function(){
 
     // 회원 정보 수정
     Route::patch('/me', [UserProfileController::class, 'update']);
+
+    // 회원 탈퇴
+    Route::delete('/me', [UserProfileController::class, 'destroy']);
 });
 

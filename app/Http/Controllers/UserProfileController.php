@@ -26,10 +26,7 @@ class UserProfileController extends BaseController
         // 토큰 확인
         $user = $request->attributes->get('auth_user');
         if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Authenticated user not found',
-            ], 401);
+            return $this->errorResponse('Authenticated user not found', null, 401);
         }
 
         // 내용 제한
@@ -39,5 +36,21 @@ class UserProfileController extends BaseController
         
         // 저장
         return $this->successResponse('profile updated', $updatedUser);
+    }
+
+
+    // 회원 탈퇴
+    public function destroy(Request $request)
+    {
+        // 토큰 검증
+        $user = $request->attributes->get('auth_user');
+        if (!$user) {
+            return $this->errorResponse('Authenticated user not found', null, 401);
+        }
+
+        // 삭제
+        $this->userService->destroy($user);
+        // 결과 보내기
+        return $this->successResponse('회원 탈퇴가 완료되었습니다.');
     }
 }

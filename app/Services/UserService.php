@@ -29,4 +29,11 @@ class UserService
         $user->save();
         return $user;
     }
+
+
+    // 회원 탈퇴
+    public function destroy(User $user): void
+    {
+        $user->delete();
+    }
 }
