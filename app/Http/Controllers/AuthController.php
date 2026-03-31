@@ -67,4 +67,20 @@ class AuthController extends BaseController
         ],
         ]);
     }
+
+    // 내 정보 조회
+    public function show(Request $request)
+    {
+        $user = $request->attributes->get('auth_user');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'OK',
+            'data' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
+        ]);
+    }
 }
