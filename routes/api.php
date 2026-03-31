@@ -3,6 +3,7 @@
 // import
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserProfileController;
 
 // 회원가입
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -17,3 +18,6 @@ Route::middleware('jwt.auth')->group(function(){
 
 // 내 정보 조회
 Route::middleware('jwt.auth')->get('/me', [AuthController::class, 'show']);
+
+// 회원 정보 수정
+Route::middleware('jwt.auth')->patch('/me', [UserProfileController::class, 'update']);
