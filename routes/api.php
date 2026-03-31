@@ -11,4 +11,6 @@ Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 // 로그아웃
-Route::post('/auth/logout', [AuthController::class, 'logout']);
+Route::middleware('jwt.auth')->group(function(){
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
+});
