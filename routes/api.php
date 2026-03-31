@@ -14,3 +14,6 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::middleware('jwt.auth')->group(function(){
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 });
+
+// 내 정보 조회
+Route::middleware('jwt.auth')->get('/me', [AuthController::class, 'show']);
