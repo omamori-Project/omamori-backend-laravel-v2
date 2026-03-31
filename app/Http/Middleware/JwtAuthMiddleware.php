@@ -24,15 +24,15 @@ class JwtAuthMiddleware
 
         if (!$authHeader) {
             return response()->json([
-                'success' => false,
-                'message' => 'Token not provided'
+                'message' => 'Token not provided',
+                'errors' => null,
             ], 401);
         }
 
         if (!str_starts_with($authHeader, 'Bearer ')) {
             return response()->json([
-                'success' => false,
                 'message' => 'Invalid token format',
+                'errors' => null,
             ], 401);
         }
 
@@ -44,8 +44,8 @@ class JwtAuthMiddleware
             $user = User::find($decoded->user_id);
             if (!$user) {
                 return response()->json([
-                    'success' => false,
                     'message' => 'User not found',
+                    'success' => null,
                 ], 401);
             }
 
@@ -54,8 +54,8 @@ class JwtAuthMiddleware
             $request->attributes->set('auth_user', $user);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => false,
                 'message' => 'Invalid token',
+                'success' => null,
             ], 401);
         }
         return $next($request);
