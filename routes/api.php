@@ -24,9 +24,3 @@ Route::middleware('jwt.auth')->group(function(){
     // 회원 탈퇴
     Route::delete('/me', [UserProfileController::class, 'destroy']);
 });
-
-// Google OAuth 시작
-Route::get('/auth/google', [AuthController::class, 'googleRedirect']);
-
-// Google OAuth 콜백
-Route::get('/auth/google/callback', [AuthController::class, 'googleCallback']);
