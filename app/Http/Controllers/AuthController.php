@@ -98,6 +98,7 @@ class AuthController extends BaseController
         return Socialite::driver('google')->redirect();
     }
 
+    
     // Google 로그인 콜백
     public function googleCallback()
     {
