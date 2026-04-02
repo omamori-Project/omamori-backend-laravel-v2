@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Common\Base\BaseController;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
-
+use Laravel\Socialite\Facades\Socialite;
 
 
 // 상속
@@ -89,5 +89,20 @@ class AuthController extends BaseController
                 'email' => $user->email,
             ],
         ]);
+    }
+
+
+    // Google 로그인 시작
+    public function googleRedirect()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    // Google 로그인 콜백
+    public function googleCallback()
+    {
+        $result = $this->authService->googleLogin();
+
+        return $this->successResponse('google login ok', $result, 200);
     }
 }
