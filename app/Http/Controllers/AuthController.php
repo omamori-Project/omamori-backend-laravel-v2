@@ -95,7 +95,7 @@ class AuthController extends BaseController
     // Google 로그인 시작
     public function googleRedirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     
