@@ -4,6 +4,7 @@ namespace App\Services;
 
 // import
 use App\Common\Base\BaseService;
+use App\Models\User;
 use App\Repositories\UserRepository;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Hash;
